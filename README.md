@@ -14,3 +14,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Mwen Ajoute yon BottomNavigation, pou fasilite m retounen le m sot nan lis pwodwi a
+## Mwen ajoute Koneksyon pou pèmèt mwen jere kesyon konekte ak dekonekte a
