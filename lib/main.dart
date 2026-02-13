@@ -4,7 +4,6 @@ void main() {
   runApp(MainApp());
 }
 
-
 Map<String, String> users = {
   "allen20@gmail.com": "00000000",
   "admin@eboutikoo.com": "12345678",
@@ -144,7 +143,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 
                 SizedBox(height: 20),
-                
                 SizedBox(height: 40),
               ],
             ),
@@ -154,7 +152,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
 
 class MainNavigationScreen extends StatefulWidget {
   final String userEmail;
@@ -195,15 +192,16 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 }
 
-
 AppBar createAppBar(String title, BuildContext context, String userEmail, {bool hasMenu = true, bool hasBack = false}) {
   return AppBar(
     backgroundColor: Color(0xFF5271FF),
     elevation: 0,
     leading: hasMenu
-        ? IconButton(
-            icon: Icon(Icons.menu, color: Colors.white, size: 28),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MenuScreen(userEmail))),
+        ? Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.menu, color: Colors.white, size: 28),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           )
         : hasBack
             ? IconButton(icon: Icon(Icons.arrow_back, color: Colors.white, size: 28), onPressed: () => Navigator.pop(context))
@@ -214,12 +212,13 @@ AppBar createAppBar(String title, BuildContext context, String userEmail, {bool 
         margin: EdgeInsets.only(right: 12, top: 8, bottom: 8),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(color: Color(0xFF6B8AFF), borderRadius: BorderRadius.circular(6)),
-        child: Text('PEYE', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
+        child: Center(
+          child: Text('PEYE', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
+        ),
       ),
     ],
   );
 }
-
 
 Widget createProductCard(BuildContext context, String userEmail, {bool canClick = false}) {
   return GestureDetector(
@@ -274,7 +273,6 @@ Widget createProductCard(BuildContext context, String userEmail, {bool canClick 
   );
 }
 
-
 class HomeScreen extends StatefulWidget {
   final String userEmail;
   
@@ -294,11 +292,53 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget createMenuItem(String titre, IconData icon, VoidCallback action) {
+    return InkWell(
+      onTap: action,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5))),
+        child: Row(
+          children: [
+            Icon(icon, size: 20, color: Colors.black87),
+            SizedBox(width: 12),
+            Text(titre, style: TextStyle(fontSize: 15, color: Colors.black87)),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: createAppBar('EBoutikoo', context, widget.userEmail),
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width * 0.65,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+              color: Color(0xFF5271FF),
+              child: Text(
+                'EBoutikoo',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            createMenuItem('Lis pwodwi', Icons.shopping_bag, () => Navigator.pop(context)),
+            createMenuItem('Dekonekte', Icons.logout, () {
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+            }),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           SizedBox(height: 6),
@@ -321,7 +361,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
 
 class DetailScreen extends StatefulWidget {
   final String userEmail;
@@ -376,79 +415,6 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 }
-
-class MenuScreen extends StatefulWidget {
-  final String userEmail;
-  
-  MenuScreen(this.userEmail);
-
-  @override
-  State<MenuScreen> createState() => _MenuScreenState();
-}
-
-class _MenuScreenState extends State<MenuScreen> {
-  Widget createMenuItem(String titre, IconData icon, VoidCallback action) {
-    return InkWell(
-      onTap: action,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5))),
-        child: Row(
-          children: [
-            Icon(icon, size: 20, color: Colors.black87),
-            SizedBox(width: 12),
-            Text(titre, style: TextStyle(fontSize: 15, color: Colors.black87)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.3), // ✅ Semi-transparent au lieu de transparent
-      appBar: createAppBar('EBoutikoo', context, widget.userEmail, hasMenu: false, hasBack: true),
-      body: Row(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.65,
-            color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(20),
-                  color: Color(0xFF5271FF),
-                  child: Text(
-                    'EBoutikoo',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                createMenuItem('Lis pwodwi', Icons.shopping_bag, () => Navigator.pop(context)),
-                createMenuItem('Dekonekte', Icons.logout, () {
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
-                }),
-              ],
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(color: Colors.transparent), // ✅ Transparent
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 
 class ProduitsScreen extends StatefulWidget {
   final String userEmail;
@@ -511,11 +477,53 @@ class _ProduitsScreenState extends State<ProduitsScreen> {
     );
   }
 
+  Widget createMenuItem(String titre, IconData icon, VoidCallback action) {
+    return InkWell(
+      onTap: action,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300, width: 0.5))),
+        child: Row(
+          children: [
+            Icon(icon, size: 20, color: Colors.black87),
+            SizedBox(width: 12),
+            Text(titre, style: TextStyle(fontSize: 15, color: Colors.black87)),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: createAppBar('Lis Pwodwi', context, widget.userEmail),
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width * 0.65,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+              color: Color(0xFF5271FF),
+              child: Text(
+                'EBoutikoo',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            createMenuItem('Lis pwodwi', Icons.shopping_bag, () => Navigator.pop(context)),
+            createMenuItem('Dekonekte', Icons.logout, () {
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+            }),
+          ],
+        ),
+      ),
       body: GridView.builder(
         padding: EdgeInsets.all(12),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
