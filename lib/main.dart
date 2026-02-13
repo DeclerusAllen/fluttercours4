@@ -255,7 +255,7 @@ Widget createProductCard(BuildContext context, String userEmail, {bool canClick 
               children: [
                 Text('Manèt', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87)),
                 SizedBox(height: 6),
-                Text('Lorem ipsum Lorem ipsum Lorem ipsum', style: TextStyle(fontSize: 11, color: Colors.grey.shade600, height: 1.3), maxLines: 2, overflow: TextOverflow.ellipsis),
+                Text('tou nèf, menm pri ak anba lavi l', style: TextStyle(fontSize: 11, color: Colors.grey.shade600, height: 1.3), maxLines: 2, overflow: TextOverflow.ellipsis),
                 SizedBox(height: 10),
                 Row(
                   children: [
@@ -399,7 +399,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
               SizedBox(height: 16),
               Text(
-                'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum',
+                'manèt PS4 tou nef 5è chaj lit lit, batri a demontab, ak menm manet la de moun kap jwe, m pa fose w kwè, tcheke m',
                 style: TextStyle(fontSize: 13, height: 1.5, color: Colors.black87),
                 textAlign: TextAlign.justify,
               ),
@@ -459,7 +459,7 @@ class _ProduitsScreenState extends State<ProduitsScreen> {
                 children: [
                   Text('Manèt', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black87)),
                   SizedBox(height: 4),
-                  Expanded(child: Text('Lorem ipsum Lorem ipsum Lorem ipsum', style: TextStyle(fontSize: 11, color: Colors.grey.shade600), maxLines: 2, overflow: TextOverflow.ellipsis)),
+                  Expanded(child: Text('pri piyay', style: TextStyle(fontSize: 11, color: Colors.grey.shade600), maxLines: 2, overflow: TextOverflow.ellipsis)),
                   SizedBox(height: 8),
                   Row(
                     children: [
