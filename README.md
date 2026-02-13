@@ -17,3 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Mwen Ajoute yon BottomNavigation, pou fasilite m retounen le m sot nan lis pwodwi a
 ## Mwen ajoute Koneksyon pou pèmèt mwen jere kesyon konekte ak dekonekte a
+## pushAndRemoveUntil pemet mwen efface pa selman ecran m sot ladann men tout sa k te vini avan yo tou
